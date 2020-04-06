@@ -23,20 +23,24 @@ public class LimitedRequestListener implements HttpChannel.Listener
     @Override
     public void onResponseBegin(Request request)
     {
-        // After 10 responses, forcibly set connection close on response
-        if (request.getHttpChannel().getRequests() >= maxRequests)
+        long requests = request.getHttpChannel().getRequests();
+        // After X responses, forcibly set connection close on response
+        if (requests >= maxRequests)
         {
             request.getResponse().setHeader("Connection", "close");
+            LOG.debug("Setting [Connection: Close] on Request #{} for {}", requests, request.getHttpChannel().getEndPoint().getTransport());
         }
     }
 
     @Override
     public void onComplete(Request request)
     {
-        if (request.getHttpChannel().getRequests() > maxRequests)
+        long requests = request.getHttpChannel().getRequests();
+        // forcibly close connection after X request and responses are complete
+        if (requests > maxRequests)
         {
-            // forcibly close connection after 10th request and response are complete
             request.getHttpChannel().getEndPoint().close();
+            LOG.debug("Forcing Close on Request #{} for {}", requests, request.getHttpChannel().getEndPoint().getTransport());
         }
     }
 }

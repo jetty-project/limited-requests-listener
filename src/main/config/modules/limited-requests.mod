@@ -15,7 +15,7 @@ http
 # limited.requests.max=10
 
 [lib]
-lib/limited-requests-${project.version}.jar
+lib/limited-requests-listener-${project.version}.jar
 
 [xml]
 etc/limited-requests.xml

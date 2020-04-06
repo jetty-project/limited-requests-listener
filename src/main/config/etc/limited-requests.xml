@@ -2,11 +2,13 @@
 
 <Configure id="httpConnector" class="org.eclipse.jetty.server.ServerConnector">
   <Call name="addBean">
-    <New class="org.eclipse.jetty.demo.LimitedRequestListener">
-      <Set name="maxRequests">
-        <Property name="limited.requests.max" default="10" />
-      </Set>
-    </New>
+    <Arg>
+      <New class="org.eclipse.jetty.demo.LimitedRequestListener">
+        <Set name="maxRequests">
+          <Property name="limited.requests.max" default="10" />
+        </Set>
+      </New>
+    </Arg>
   </Call>
 </Configure>
 
