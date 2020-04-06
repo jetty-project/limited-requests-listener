@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
+
+<Configure id="httpConnector" class="org.eclipse.jetty.server.ServerConnector">
+  <Call name="addBean">
+    <New class="org.eclipse.jetty.demo.LimitedRequestListener">
+      <Set name="maxRequests">
+        <Property name="limited.requests.max" default="10" />
+      </Set>
+    </New>
+  </Call>
+</Configure>
+
